@@ -1,0 +1,15 @@
+name: Azure test
+on:
+  push:
+    branches:
+      - feature/github_actions_azure
+jobs:
+  kubeconfig:
+    name: Set kube config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Login
+        run: azure login -u ${{secrets.AZURE_USERNAME }} -p ${{secrets.AZURE_PASSWORD	}}
