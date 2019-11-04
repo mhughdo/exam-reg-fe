@@ -16,6 +16,4 @@ jobs:
       - name: Build Image
         run: docker build  -t hughdo/examreg-idfsg-fe:${{github.sha}} .
       - name: Push Image
-        env:
-          GITHUB_SHA:${{github.sha}}
-        run: docker push hughdo/examreg-idfsg-fe:$GITHUB_SHA
+        run: docker push hughdo/examreg-idfsg-fe:${{github.sha}}$GITHUB_SHA
