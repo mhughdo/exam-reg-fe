@@ -8,5 +8,7 @@ jobs:
     name: Publish image
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
+      - name: Login
         run: docker login -u ${{secrets.DOCKER_USERNAME }} -p ${{secrets. DOCKER_PASSWORD	}}
+      - name: Build Image
+        run: docker build --rm -f "Dockerfile" -t hughdo/examreg-idfsg-fe:${{GITHUB_SHA}} .
