@@ -1,4 +1,4 @@
-name: Hello World
+name: Exam Reg
 on:
   push:
     branches:
@@ -8,7 +8,7 @@ jobs:
     name: Publish image
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
         with:
           fetch-depth: 1
       - name: Login
