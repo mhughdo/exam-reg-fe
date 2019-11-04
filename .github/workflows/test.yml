@@ -12,4 +12,4 @@ jobs:
         with:
           fetch-depth: 1
       - name: Login
-        run: az login -u ${{secrets.AZURE_USERNAME }} -p ${{secrets.AZURE_PASSWORD	}}
+        run: az login --service-principal --username ${{AZURE.USERNAME}} --password ${{AZURE.PASSWORD}} --tenant ${{AZURE.TENANT}}
