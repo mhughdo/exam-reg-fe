@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exam-reg-webapp
+spec:
+  selector:
+    matchLabels:
+      app: exam-reg-webapp
+  template:
+    metadata:
+      labels:
+        app: exam-reg-webapp
+    spec:
+      containers:
+      - name: exam-reg-webapp
+        image: hughdo/examreg-idfsg-fe:$GITHUB_SHA
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: exam-reg-svc
+spec:
+  selector:
+    app: exam-reg-webapp
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: LoadBalancer
+
