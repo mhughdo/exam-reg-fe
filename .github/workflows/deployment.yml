@@ -17,9 +17,6 @@ jobs:
         run: docker build  -t hughdo/examreg-idfsg-fe:${{ github.sha }} .
       - name: Push Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_URL }}:${{ github.sha }}
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
       - name: Azure Login
         run: az login --service-principal --username ${{ secrets.AZURE_USERNAME }} --password ${{ secrets.AZURE_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT }}
       - name: Set Kubeconfig
@@ -31,8 +28,8 @@ jobs:
           GITHUB_SHA: ${{github.sha}}
         run: sed -i 's|GITHUB_SHA|$GITHUB_SHA|' ./k8s/deployment.yml
       - name: Check yaml file
-        run: grep -E "image" ./deployment.yml
+        run: grep -E "image" ./k8s/deployment.yml
       - name: Apply yaml file
-        run: kubectl apply -f ./deployment.yml
+        run: kubectl apply -f ./k8s/deployment.yml
       - name: Check result
         run: kubectl get all
