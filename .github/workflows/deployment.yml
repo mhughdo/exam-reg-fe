@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - feature/github_actions_kubernetes
-
 jobs:
   BuildNDeploy:
     name: Build Publish Deploy
