@@ -24,9 +24,7 @@ jobs:
       - name: Get Kubeconfig
         run: cat ~/.kube/config
       - name: Set Image Tag
-        env:
-          GITHUB_SHA: ${{github.sha}}
-        run: sed -i 's|GITHUB_SHA|$GITHUB_SHA|' ./k8s/deployment.yml
+        run: sed -i 's|GITHUB_SHA|${{ github.sha }}|' ./k8s/deployment.yml
       - name: Check yaml file
         run: grep -E "image" ./k8s/deployment.yml
       - name: Apply yaml file
