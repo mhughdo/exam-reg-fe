@@ -5,7 +5,7 @@ on:
       - feature/github_actions_kubernetes
 jobs:
   deploy:
-    name: Build Publish Deploy
+    name: Build Publish Deployy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
