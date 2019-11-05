@@ -16,7 +16,7 @@ jobs:
       - name: Build Image
         run: docker build  -t hughdo/examreg-idfsg-fe:${{ github.sha }} .
       - name: Push Image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_URL }}:${{ github.sha} }
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REGISTRY_URL }}:${{ github.sha }}
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
