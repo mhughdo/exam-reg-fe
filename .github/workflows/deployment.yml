@@ -1,8 +1,5 @@
 name: Deploy to Kubernetess
-on:
-  push:
-    branches:
-      - feature/github_actions_kubernetes
+on: [push]
 jobs:
   deploy:
     name: Build Publish Deployy
