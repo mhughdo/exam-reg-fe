@@ -2,7 +2,7 @@ name: Deploy to Kubernetes
 on:
   push:
     branches:
-      - feature/github_actions_kubernetes
+      - feature/github_actions_kubernetes2
 jobs:
   BuildNDeploy:
     name: Build Publish Deploy
