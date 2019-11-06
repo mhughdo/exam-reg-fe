@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: exam-reg-webapp
-        image: hughdo/examreg-idfsg-fe:GITHUB_SHA
+        image: hughdo/examreg-idfsg-fe:latest
         resources:
           limits:
             memory: "128Mi"
@@ -30,7 +30,7 @@ spec:
           httpGet:
             path: /
             port: 3000
-          initialDelaySeconds: 30
+          initialDelaySeconds: 31
           periodSeconds: 3
 ---
 apiVersion: v1
@@ -41,9 +41,9 @@ spec:
   selector:
     app: exam-reg-webapp
   ports:
-  - port: 3000
+  - port: 80
     targetPort: 3000
-  type: LoadBalancer
+  type: ClusterIP
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -65,6 +65,6 @@ spec:
       - path: /
         backend:
           serviceName: exam-reg-svc
-          servicePort: 3000
+          servicePort: 80
 
 
