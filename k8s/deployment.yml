@@ -66,5 +66,3 @@ spec:
         backend:
           serviceName: exam-reg-svc
           servicePort: 80
-
-
