@@ -2,10 +2,10 @@ name: Deploy to Kubernetess
 on:
   push:
     branches:
-      - feature/github_actions_kubernetes
+      - master
 jobs:
   deploy:
-    name: Build Publish Deployyy
+    name: Build Publish Deploy FE
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
