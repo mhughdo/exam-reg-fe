@@ -13,7 +13,7 @@ spec:
         spec:
             containers:
                 - name: exam-reg-webapp
-                  image: hughdo/examreg-idfsg-fe:latest
+                  image: hughdo/examreg-idfsg-fe:GITHUB_SHA
                   resources:
                       limits:
                           memory: '128Mi'
