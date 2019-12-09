@@ -5,7 +5,7 @@ import {useQuery} from '@apollo/react-hooks'
 import './user.styles.scss'
 
 const ME = gql`
-    query fecthUser {
+    query fetchUser {
         me {
             userInfo {
                 name

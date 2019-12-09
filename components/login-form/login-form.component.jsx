@@ -32,7 +32,7 @@ const loginForm = ({form}) => {
         // })
         const formValues = form.getFieldsValue()
 
-        signIn({variables: {data: formValues}})
+        signIn({variables: {data: formValues}, refetchQueries: ['fetchUser']})
     }
 
     const {getFieldDecorator} = form
