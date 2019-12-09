@@ -1,0 +1,36 @@
+.login-form {
+  max-width: 300px;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+
+.login-form {
+  // height: 100%;
+  padding: 1.5rem;
+  min-width: 400px;
+  border-radius: 5px;
+  border: 1px solid #d8dee2;
+}
+
+.form-header {
+  margin-bottom: 1rem;
+  font-size: 24px;
+}
+
+.login-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  .ant-row {
+    margin-bottom: 0;
+  }
+}
+
+.ant-form {
+  width: 100%;
+}

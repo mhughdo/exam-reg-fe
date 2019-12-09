@@ -18,21 +18,20 @@ module.exports = withCSS(
                     },
                     ...(typeof origExternals[0] === 'function' ? [] : origExternals),
                 ]
-                config.module.rules.push({
-                    test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-                    use: {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 100000,
-                        },
-                    },
-                })
-
                 config.module.rules.unshift({
                     test: antStyles,
                     use: 'null-loader',
                 })
             }
+            config.module.rules.push({
+                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 100000,
+                    },
+                },
+            })
             return config
         },
         poweredByHeader: false,
