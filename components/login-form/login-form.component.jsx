@@ -4,6 +4,7 @@ import './login-form.styles.scss'
 import {useMutation} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import Logo from '../../assets/shark.svg'
+import {withApollo} from '../../lib/apollo'
 
 const SIGN_IN = gql`
     mutation signIn($data: UserSignInInput!) {
@@ -32,7 +33,7 @@ const loginForm = ({form}) => {
         // })
         const formValues = form.getFieldsValue()
 
-        signIn({variables: {data: formValues}, refetchQueries: ['fetchUser']})
+        signIn({variables: {data: formValues}, refetchQueries: ['me']})
     }
 
     const {getFieldDecorator} = form
@@ -70,4 +71,4 @@ const loginForm = ({form}) => {
 
 const WrappedLoginForm = Form.create({name: 'form-login'})(loginForm)
 
-export default WrappedLoginForm
+export default withApollo(WrappedLoginForm)

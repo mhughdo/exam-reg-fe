@@ -1,25 +1,12 @@
 import React from 'react'
-import gql from 'graphql-tag'
-import {Avatar, Row, Col, Button, message} from 'antd'
-import {useQuery} from '@apollo/react-hooks'
-import './user.styles.scss'
+import {Avatar, Row, Col, Button} from 'antd'
+import useUser from '../../User'
+import './nav-right.styles.scss'
 
-const ME = gql`
-    query fetchUser {
-        me {
-            userInfo {
-                name
-            }
-        }
-    }
-`
+const NavRight = () => {
+    const {data} = useUser()
 
-const User = () => {
-    const {data, loading, error} = useQuery(ME)
-
-    if (loading) return null
-
-    if (error) return message.error('Error fetching user!')
+    if (!data) return null
 
     return (
         <Row type='flex' justify='end'>
@@ -40,4 +27,4 @@ const User = () => {
     )
 }
 
-export default User
+export default NavRight

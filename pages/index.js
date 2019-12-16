@@ -1,16 +1,13 @@
 import React from 'react'
 import Head from 'next/head'
-import {useQuery} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
-import Nav from '../components/nav'
+import {useQuery} from '@apollo/react-hooks'
+import {withApollo} from '../lib/apollo'
 
-const ALL_STUDENTS = gql`
-    query Students {
-        students {
-            id
-            studentID
-            name
-            courses {
+const ME = gql`
+    query me {
+        me {
+            userInfo {
                 name
             }
         }
@@ -18,9 +15,9 @@ const ALL_STUDENTS = gql`
 `
 
 const Home = () => {
-    // const {data, loading, error} = useQuery(ALL_STUDENTS)
+    const {data} = useQuery(ME)
 
-    // if (loading) return <p>Loading</p>
+    console.log(data)
 
     return (
         <div>
@@ -28,12 +25,8 @@ const Home = () => {
                 <title>Home</title>
                 <link rel='icon' href='/favicon.ico' />
             </Head>
-            
-            {/* {data.students.map(student => (
-                <div key={student.id}>{student.name}</div>
-            ))} */}
         </div>
     )
 }
 
-export default Home
+export default withApollo(Home)

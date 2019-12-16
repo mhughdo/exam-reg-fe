@@ -1,6 +1,6 @@
 import React from 'react'
 import {Layout, Input, Row, Col} from 'antd'
-import User from './user/user.component'
+import NavRight from './nav-right/nav-right.component'
 
 const {Header} = Layout
 
@@ -18,7 +18,7 @@ const HeaderComponent = () => {
                     />
                 </Col>
                 <Col span={8} className='nav-wrapper-right'>
-                    <User />
+                    {/* <NavRight /> */}
                 </Col>
             </Row>
         </Header>
