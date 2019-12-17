@@ -4,7 +4,6 @@ import './login-form.styles.scss'
 import {useMutation} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import Logo from '../../assets/shark.svg'
-import {withApollo} from '../../lib/apollo'
 
 const SIGN_IN = gql`
     mutation signIn($data: UserSignInInput!) {
@@ -71,4 +70,4 @@ const loginForm = ({form}) => {
 
 const WrappedLoginForm = Form.create({name: 'form-login'})(loginForm)
 
-export default withApollo(WrappedLoginForm)
+export default WrappedLoginForm

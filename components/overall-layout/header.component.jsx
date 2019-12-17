@@ -18,7 +18,7 @@ const HeaderComponent = () => {
                     />
                 </Col>
                 <Col span={8} className='nav-wrapper-right'>
-                    {/* <NavRight /> */}
+                    <NavRight />
                 </Col>
             </Row>
         </Header>

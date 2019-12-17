@@ -3,7 +3,6 @@ import {css} from '@emotion/core'
 import useUser from '../User'
 import Login from '../login-form/login-form.component'
 import './please-sign-in.styles.scss'
-import {withApollo} from '../../lib/apollo'
 
 const override = css`
     display: block;
@@ -12,8 +11,6 @@ const override = css`
 
 const PleaseSignIn = ({children, ...rest}) => {
     const {data} = useUser()
-
-    console.log(data)
 
     if (!data) {
         return (
