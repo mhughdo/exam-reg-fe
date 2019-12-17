@@ -1,9 +1,10 @@
 import React from 'react'
-import {Form, Icon, Input, Button, message} from 'antd'
+import {Form, Icon, Input, Button} from 'antd'
 import './login-form.styles.scss'
 import {useMutation} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import Logo from '../../assets/shark.svg'
+import displayMessage from '../../shared/displayMessage'
 
 const SIGN_IN = gql`
     mutation signIn($data: UserSignInInput!) {
@@ -19,9 +20,8 @@ const SIGN_IN = gql`
 `
 
 const loginForm = ({form}) => {
-    const [signIn, {data, loading, error}] = useMutation(SIGN_IN)
+    const [signIn, {data, loading, error}] = useMutation(SIGN_IN, {onError: error => displayMessage(error)})
 
-    if (error) return message.error(error)
     if (data?.signIn) {
         window.location.href = '/'
     }
