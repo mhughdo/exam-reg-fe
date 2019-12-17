@@ -6,8 +6,10 @@ import Logo from '../../assets/shark.svg'
 
 const {Sider, Content} = Layout
 
-const OverallLayout = ({children}) => {
+const OverallLayout = ({children, me}) => {
     const [isCollapsed, toggleCollapsed] = useState(false)
+
+    if (!me) return <>{children} </>
 
     return (
         <Layout hasSider style={{minHeight: '100vh'}}>

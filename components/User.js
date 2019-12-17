@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import {useQuery} from '@apollo/react-hooks'
 
 const ME = gql`
-    query me {
+    query getUser {
         me {
             userInfo {
                 name

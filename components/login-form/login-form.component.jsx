@@ -22,6 +22,9 @@ const loginForm = ({form}) => {
     const [signIn, {data, loading, error}] = useMutation(SIGN_IN)
 
     if (error) return message.error(error)
+    if (data?.signIn) {
+        window.location.href = '/'
+    }
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -32,7 +35,7 @@ const loginForm = ({form}) => {
         // })
         const formValues = form.getFieldsValue()
 
-        signIn({variables: {data: formValues}, refetchQueries: ['me']})
+        signIn({variables: {data: formValues}, refetchQueries: ['getUser']})
     }
 
     const {getFieldDecorator} = form
