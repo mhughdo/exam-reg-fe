@@ -3,11 +3,13 @@ import {Layout, Menu, Icon} from 'antd'
 import Header from './header.component'
 import './overall-layout.styles.scss'
 import Logo from '../../assets/shark.svg'
+import {useUserContext} from '../User'
 
 const {Sider, Content} = Layout
 
-const OverallLayout = ({children, me}) => {
+const OverallLayout = ({children}) => {
     const [isCollapsed, toggleCollapsed] = useState(false)
+    const me = useUserContext()
 
     if (!me) return <>{children} </>
 

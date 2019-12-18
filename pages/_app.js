@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import App from 'next/app'
 import 'antd/dist/antd.css'
 
@@ -7,10 +7,17 @@ import '../style/index.scss'
 import {withApollo} from '../lib/apollo'
 import redirect from '../lib/redirect'
 import getUser from '../lib/getUser'
+import {UserContext} from '../components/User'
 
+function SubApp({children, me}) {
+    const value = useMemo(() => {
+        return me
+    }, [me])
+
+    return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+}
 class MyApp extends App {
     static async getInitialProps({Component, ctx}) {
-        console.log('Triggered _app.js')
         let pageProps = {}
         if (Component.getInitialProps) {
             pageProps = await Component.getInitialProps(ctx)
@@ -33,9 +40,11 @@ class MyApp extends App {
         const {me} = pageProps
 
         return (
-            <Page me={me}>
-                <Component {...pageProps} />
-            </Page>
+            <SubApp me={me}>
+                <Page>
+                    <Component {...pageProps} />
+                </Page>
+            </SubApp>
         )
     }
 }

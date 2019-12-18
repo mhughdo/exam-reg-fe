@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Dashboard from '../components/dashboard/dashboard.component'
 
 const Home = () => {
     return (
@@ -8,6 +9,7 @@ const Home = () => {
                 <title>Home</title>
                 <link rel='icon' href='/favicon.ico' />
             </Head>
+            <Dashboard />
         </div>
     )
 }

@@ -1,3 +1,5 @@
+@import './ant-reset.scss';
+
 *,
 *::before,
 *::after {
@@ -97,4 +99,8 @@ select {
 
 .sv-error-response {
   color: #b71c1c;
+}
+
+.container {
+  max-width: 1200px;
 }
