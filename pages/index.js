@@ -1,15 +1,20 @@
 import React from 'react'
 import Head from 'next/head'
-import Dashboard from '../components/dashboard/dashboard.component'
+import StudentDashboard from '../components/student-dashboard/student-dashboard.component'
+import AdminDashboard from '../components/admin-dashboard/admin-dashboard.component'
+import {useUserContext} from '../components/User'
 
 const Home = () => {
+    const me = useUserContext()
+
     return (
         <div>
             <Head>
-                <title>Home</title>
+                <title>Dashboard</title>
                 <link rel='icon' href='/favicon.ico' />
             </Head>
-            <Dashboard />
+            {me?.userInfo?.userType === 'USER' && <StudentDashboard />}
+            {me?.userInfo?.userType === 'ADMIN' && <AdminDashboard />}
         </div>
     )
 }

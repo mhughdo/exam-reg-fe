@@ -2,6 +2,10 @@
   height: 100%;
   float: right;
   margin: 0 0.5rem;
+  cursor: pointer;
+  &--name {
+    margin: 0 0.3rem;
+  }
 }
 
 .ant-avatar {

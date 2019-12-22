@@ -8,6 +8,7 @@ const ME = gql`
             studentID
             userInfo {
                 name
+                userType
             }
         }
     }
