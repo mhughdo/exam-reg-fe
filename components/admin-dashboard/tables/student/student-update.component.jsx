@@ -1,7 +1,7 @@
 /* eslint react-hooks/exhaustive-deps: 0 */
 
-import React, {useEffect, useState} from 'react'
-import {Modal, Form, Input, message} from 'antd'
+import React, {useEffect} from 'react'
+import {Modal, Form, Input} from 'antd'
 import gql from 'graphql-tag'
 import useDynamicMutation from '../../../../hooks/useDynamicMutation'
 
@@ -14,7 +14,7 @@ const STUDENT_UPDATE = gql`
 `
 
 const StudentUpdate = ({visible, setUpdateModalOpen, data, form}) => {
-    const {fn: updateStudent, data: updatedData, loading} = useDynamicMutation({
+    const {fn: updateStudent, loading} = useDynamicMutation({
         query: STUDENT_UPDATE,
         successMsg: 'Update student successfully',
     })

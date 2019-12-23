@@ -1,9 +1,11 @@
 import React, {useState, useEffect, useCallback} from 'react'
-import { Table, Divider} from 'antd'
+import {Table, Divider, Popconfirm} from 'antd'
 import gql from 'graphql-tag'
 import Link from 'next/link'
 import useDynamicQuery from '../../../../hooks/useDynamicQuery'
 import './session-table.styles.scss'
+import useDynamicMutation from '../../../../hooks/useDynamicMutation'
+import SessionUpdate from './session-update.component'
 
 const ALL_SESSIONS_ADMIN = gql`
     query ALL_SESSIONS_ADMIN {
@@ -16,6 +18,7 @@ const ALL_SESSIONS_ADMIN = gql`
             }
             shift {
                 id
+                shiftID
                 date
                 startTime
             }
@@ -32,14 +35,26 @@ const ALL_SESSIONS_ADMIN = gql`
     }
 `
 
+const SESSION_DELETE = gql`
+    mutation SESSION_DELETE($id: ID!) {
+        deleteSession(id: $id) {
+            id
+        }
+    }
+`
+
 const SessionTable = () => {
     const {data, loading} = useDynamicQuery({query: ALL_SESSIONS_ADMIN})
     const [transformedData, setTransformedData] = useState(null)
+    const [updateModalOpen, setUpdateModalOpen] = useState(false)
+    const [currentSession, setCurrentSession] = useState(null)
+    const {fn: deleteSession} = useDynamicMutation({query: SESSION_DELETE, successMsg: 'Deleted session successfully'})
 
     const columns = [
         {
             title: 'Course Name',
             dataIndex: 'courseName',
+            // eslint-disable-next-line react/display-name
             render: (text, record) => (
                 <Link href='/session/[ssid]' as={`/session/${record.key}`}>
                     <a>{record.courseName}</a>
@@ -74,11 +89,24 @@ const SessionTable = () => {
         {
             title: 'Action',
             dataIndex: 'action',
+            // eslint-disable-next-line react/display-name
             render: (text, record) => (
                 <>
-                    <a>Edit</a>
+                    <a
+                        onClick={() => {
+                            setUpdateModalOpen(true)
+                            setCurrentSession(record.key)
+                        }}>
+                        Edit
+                    </a>
                     <Divider type='vertical' />
-                    <a>Delete</a>
+                    <Popconfirm
+                        title='Sure to delete?'
+                        onConfirm={() =>
+                            deleteSession({variables: {id: record.key}, refetchQueries: ['ALL_SESSIONS_ADMIN']})
+                        }>
+                        <a>Delete</a>
+                    </Popconfirm>
                 </>
             ),
         },
@@ -109,7 +137,18 @@ const SessionTable = () => {
         }
     }, [data, transformData])
 
-    return <Table loading={loading} columns={columns} dataSource={transformedData || null} />
+    return (
+        <>
+            <Table loading={loading} columns={columns} dataSource={transformedData || null} />
+            {!loading && data?.sessions && (
+                <SessionUpdate
+                    data={data?.sessions.find(session => session.id === currentSession)}
+                    visible={updateModalOpen}
+                    setUpdateModalOpen={setUpdateModalOpen}
+                />
+            )}
+        </>
+    )
 }
 
 export default SessionTable

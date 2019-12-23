@@ -38,7 +38,7 @@ const STUDENT_DELETE = gql`
 const StudentTable = () => {
     const {data, loading} = useDynamicQuery({query: ALL_STUDENTS})
     const [students, setStudents] = useState(null)
-    const {fn: deleteStudent, loading: deleteStudentLoading} = useDynamicMutation({
+    const {fn: deleteStudent} = useDynamicMutation({
         query: STUDENT_DELETE,
         successMsg: 'Deleted student successfully',
     })
