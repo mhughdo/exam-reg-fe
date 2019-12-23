@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import gql from 'graphql-tag'
-import {Table} from 'antd'
+import { Table, Divider} from 'antd'
 import useDynamicQuery from '../../../../hooks/useDynamicQuery'
 
 const ALL_SHIFTS = gql`
@@ -31,6 +31,17 @@ const columns = [
     {
         title: 'End Time',
         dataIndex: 'endTime',
+    },
+    {
+        title: 'Action',
+        dataIndex: 'action',
+        render: (text, record) => (
+            <>
+                <a>Edit</a>
+                <Divider type='vertical' />
+                <a>Delete</a>
+            </>
+        ),
     },
 ]
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react'
-import {Table} from 'antd'
+import { Table, Divider} from 'antd'
 import gql from 'graphql-tag'
 import Link from 'next/link'
 import useDynamicQuery from '../../../../hooks/useDynamicQuery'
@@ -74,7 +74,13 @@ const SessionTable = () => {
         {
             title: 'Action',
             dataIndex: 'action',
-            render: (text, record) => <p>Hello World</p>,
+            render: (text, record) => (
+                <>
+                    <a>Edit</a>
+                    <Divider type='vertical' />
+                    <a>Delete</a>
+                </>
+            ),
         },
     ]
 
