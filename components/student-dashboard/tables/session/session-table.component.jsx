@@ -133,9 +133,13 @@ const SessionTable = () => {
 
     const isEligible = useCallback(
         session => {
-            return session.course.students.find(student => student.studentID === me?.studentID)
+            return (
+                session.course.students.find(student => student.studentID === me?.studentID) &&
+                !isDisable(session) &&
+                !isRegister(session)
+            )
         },
-        [me]
+        [isDisable, isRegister, me]
     )
 
     const transformData = useCallback(
