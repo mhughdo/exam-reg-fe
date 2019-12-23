@@ -11,7 +11,7 @@ const REGISTER_SESSION = gql`
     }
 `
 
-const Register = ({id, studentID = ''}) => {
+const Register = ({id, studentID = '', isDisable}) => {
     const {fn: register, data, loading} = useDynamicMutation({query: REGISTER_SESSION})
     useEffect(() => {
         if (data?.registerToSession) {
@@ -23,6 +23,7 @@ const Register = ({id, studentID = ''}) => {
         <Button
             type='primary'
             loading={loading}
+            disabled={isDisable}
             onClick={() => register({variables: {id, studentID}, refetchQueries: ['getAllSessions']})}>
             Register
         </Button>

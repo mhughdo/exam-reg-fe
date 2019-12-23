@@ -15,7 +15,7 @@ const ALL_ROOMS = gql`
 
 const columns = [
     {
-        title: '#',
+        title: 'ID',
         dataIndex: 'roomID',
     },
     {

@@ -17,7 +17,7 @@ const ALL_SHIFTS = gql`
 
 const columns = [
     {
-        title: '#',
+        title: 'ID',
         dataIndex: 'shiftID',
     },
     {

@@ -1,0 +1,17 @@
+.session-detail {
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 300;
+  }
+  .shift-info {
+    float: right;
+  }
+
+  .download-button {
+    margin-top: 0.5rem;
+    .anticon {
+      margin-right: 0.5rem;
+    }
+  }
+}

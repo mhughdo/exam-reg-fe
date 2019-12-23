@@ -17,6 +17,9 @@ const ALL_SESSIONS = gql`
                 students {
                     studentID
                 }
+                nonEligibleStudents {
+                    studentID
+                }
             }
             shift {
                 id
@@ -104,9 +107,9 @@ const SessionTable = () => {
             dataIndex: 'action',
             render: (text, record) =>
                 record.isRegister ? (
-                    <UnRegister id={record.key} studentID={me?.studentID} />
+                    <UnRegister id={record.key} isDisable={isDisable} studentID={me?.studentID} />
                 ) : (
-                    <Register id={record.key} studentID={me?.studentID} />
+                    <Register id={record.key} isDisable={isDisable} studentID={me?.studentID} />
                 ),
         },
     ]
@@ -114,6 +117,16 @@ const SessionTable = () => {
     const isRegister = useCallback(
         session => {
             return session.students.find(student => student.studentID === me?.studentID)
+        },
+        [me]
+    )
+
+    const isDisable = useCallback(
+        session => {
+            return (
+                session.course.nonEligibleStudents.find(student => student.studentID === me?.studentID) ||
+                session.students.length === session.room.totalPC
+            )
         },
         [me]
     )
@@ -142,11 +155,12 @@ const SessionTable = () => {
                     roomID: item.room.roomID,
                     isRegister: isRegister(item),
                     isEligible: isEligible(item),
+                    disbale: isDisable(item),
                 }
             })
             setTransformedData(result)
         },
-        [isEligible, isRegister]
+        [isDisable, isEligible, isRegister]
     )
 
     useEffect(() => {

@@ -11,7 +11,7 @@ const UNREGISTER_SESSION = gql`
     }
 `
 
-const UnRegister = ({id, studentID = ''}) => {
+const UnRegister = ({id, studentID = '', isDisable}) => {
     const {fn: unregister, data, loading} = useDynamicMutation({query: UNREGISTER_SESSION})
     useEffect(() => {
         if (data?.unregisterFromSession) {
@@ -23,6 +23,7 @@ const UnRegister = ({id, studentID = ''}) => {
         <Button
             type='danger'
             loading={loading}
+            disabled={isDisable}
             onClick={() => unregister({variables: {id, studentID}, refetchQueries: ['getAllSessions']})}>
             UnRegister
         </Button>

@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import {Table} from 'antd'
 import gql from 'graphql-tag'
+import Link from 'next/link'
 import useDynamicQuery from '../../../../hooks/useDynamicQuery'
-import {useUserContext} from '../../../User'
 import './session-table.styles.scss'
 
 const ALL_SESSIONS_ADMIN = gql`
@@ -35,12 +35,16 @@ const ALL_SESSIONS_ADMIN = gql`
 const SessionTable = () => {
     const {data, loading} = useDynamicQuery({query: ALL_SESSIONS_ADMIN})
     const [transformedData, setTransformedData] = useState(null)
-    const me = useUserContext()
 
     const columns = [
         {
             title: 'Course Name',
             dataIndex: 'courseName',
+            render: (text, record) => (
+                <Link href='/session/[ssid]' as={`/session/${record.key}`}>
+                    <a>{record.courseName}</a>
+                </Link>
+            ),
             sorter: (a, b) => a.courseName > b.courseName,
             sortDirections: ['descend', 'ascend'],
         },
