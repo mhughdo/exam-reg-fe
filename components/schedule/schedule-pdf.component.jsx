@@ -1,6 +1,5 @@
 import {Document, Page, View, StyleSheet, Font, Text} from '@react-pdf/renderer'
 import Roboto from '../../assets/Roboto-Light.ttf'
-import {useUserContext} from '../User'
 
 Font.register({
     family: 'Roboto',
@@ -108,7 +107,7 @@ const SchedulePDF = ({schedule, me}) => {
                         {schedule &&
                             schedule.map(s => {
                                 return (
-                                    <View style={styles.tableRow}>
+                                    <View key={s.key} style={styles.tableRow}>
                                         <View style={styles.tableCol}>
                                             <Text style={styles.tableCell}>{s.index}</Text>
                                         </View>

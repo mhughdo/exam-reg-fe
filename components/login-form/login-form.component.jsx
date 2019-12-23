@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Icon, Input, Button} from 'antd'
+import {Form, Icon, Input, Button, message} from 'antd'
 import './login-form.styles.scss'
 import {useMutation} from '@apollo/react-hooks'
 import gql from 'graphql-tag'
@@ -34,6 +34,11 @@ const loginForm = ({form}) => {
         //     }
         // })
         const formValues = form.getFieldsValue()
+
+        if (!formValues.email || !formValues.password) {
+            message.error('Email or Password cannot be empty!')
+            return
+        }
 
         signIn({variables: {data: formValues}})
     }

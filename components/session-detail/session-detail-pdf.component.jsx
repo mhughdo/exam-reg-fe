@@ -111,7 +111,7 @@ const SessionDetailPDF = ({students, sessionInfo}) => {
                         {students &&
                             students.map(student => {
                                 return (
-                                    <View style={styles.tableRow}>
+                                    <View key={student.key} style={styles.tableRow}>
                                         <View style={styles.tableCol}>
                                             <Text style={styles.tableCell}>{student.index}</Text>
                                         </View>

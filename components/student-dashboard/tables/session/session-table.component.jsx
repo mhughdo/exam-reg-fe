@@ -107,9 +107,9 @@ const SessionTable = () => {
             dataIndex: 'action',
             render: (text, record) =>
                 record.isRegister ? (
-                    <UnRegister id={record.key} isDisable={isDisable} studentID={me?.studentID} />
+                    <UnRegister id={record.key} isDisable={record.isDisable} studentID={me?.studentID} />
                 ) : (
-                    <Register id={record.key} isDisable={isDisable} studentID={me?.studentID} />
+                    <Register id={record.key} isDisable={record.isDisable} studentID={me?.studentID} />
                 ),
         },
     ]

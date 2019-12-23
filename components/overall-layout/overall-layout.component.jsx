@@ -33,7 +33,9 @@ const OverallLayout = ({children}) => {
         <Layout hasSider style={{minHeight: '100vh'}}>
             <Sider collapsible collapsed={isCollapsed} onCollapse={() => toggleCollapsed(!isCollapsed)}>
                 <div className='logo'>
-                    <img src={Logo} alt='Logo' />
+                    <a href='/'>
+                        <img src={Logo} alt='Logo' />
+                    </a>
                 </div>
                 <Menu theme='dark' mode='inline' defaultSelectedKeys={['dashboard']} selectedKeys={selectedKeys}>
                     <Menu.Item key='dashboard'>

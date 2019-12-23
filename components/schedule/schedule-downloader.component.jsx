@@ -3,8 +3,6 @@ import {Icon, Button} from 'antd'
 import SchedulePDF from './schedule-pdf.component'
 
 const ScheduleDownloader = ({schedule, me}) => {
-    console.log(schedule)
-
     return (
         <div className='download-button'>
             <Button>
