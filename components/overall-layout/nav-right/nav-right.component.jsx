@@ -3,6 +3,7 @@ import {Avatar, Row, Col, Button, Menu, Dropdown, Icon} from 'antd'
 import {useUserContext} from '../../User'
 import './nav-right.styles.scss'
 import SignOut from './sign-out.component'
+import UploadFile from '../../Upload'
 
 const NavRight = () => {
     const me = useUserContext()
@@ -18,15 +19,41 @@ const NavRight = () => {
         </Menu>
     )
 
+    const importMenu = (
+        <Menu>
+            <Menu.Item key='sessions'>
+                <UploadFile fileName='sessions' />
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key='students'>
+                <UploadFile fileName='students' />
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key='courses'>
+                <UploadFile fileName='courses' />
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key='shifts'>
+                <UploadFile fileName='shifts' />
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key='rooms'>
+                <UploadFile fileName='rooms' />
+            </Menu.Item>
+        </Menu>
+    )
+
     return (
         <Row type='flex' justify='end'>
             {me?.userInfo?.name && (
                 <>
                     {me?.userInfo?.userType === 'ADMIN' && (
                         <Col className=''>
-                            <Button type='primary' icon='import' className='button-import'>
-                                Import
-                            </Button>
+                            <Dropdown overlay={importMenu} trigger={['click']}>
+                                <Button type='primary' icon='import' className='button-import'>
+                                    Import
+                                </Button>
+                            </Dropdown>
                         </Col>
                     )}
                     <Dropdown

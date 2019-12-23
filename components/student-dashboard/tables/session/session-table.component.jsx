@@ -107,9 +107,9 @@ const SessionTable = () => {
             dataIndex: 'action',
             render: (text, record) =>
                 record.isRegister ? (
-                    <UnRegister id={record.key} isDisable={record.isDisable} studentID={me?.studentID} />
+                    <UnRegister id={record.key} isDisable={record.disable} studentID={me?.studentID} />
                 ) : (
-                    <Register id={record.key} isDisable={record.isDisable} studentID={me?.studentID} />
+                    <Register id={record.key} isDisable={record.disable} studentID={me?.studentID} />
                 ),
         },
     ]
@@ -124,8 +124,8 @@ const SessionTable = () => {
     const isDisable = useCallback(
         session => {
             return (
-                session.course.nonEligibleStudents.find(student => student.studentID === me?.studentID) ||
-                session.students.length === session.room.totalPC
+                session.course.nonEligibleStudents.find(student => student.studentID === me.studentID) ||
+                session.students.length >= session.room.totalPC
             )
         },
         [me]
@@ -155,7 +155,7 @@ const SessionTable = () => {
                     roomID: item.room.roomID,
                     isRegister: isRegister(item),
                     isEligible: isEligible(item),
-                    disbale: isDisable(item),
+                    disable: isDisable(item),
                 }
             })
             setTransformedData(result)
