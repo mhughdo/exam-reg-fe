@@ -5,11 +5,12 @@ import axios from 'axios'
 const uploadURL =
     process.env.NODE_ENV === 'production' ? 'https://examreg.hughdo.dev/api/upload' : 'http://localhost:4000/upload'
 
-const UploadFile = ({fileName}) => {
+const UploadFile = ({fileName, setLoading}) => {
     const customRequest = args => {
         const {onSuccess, file, onError} = args
         const data = new FormData()
         data.append(`${fileName}`, file)
+        setLoading(true)
         axios
             .post(`${uploadURL}/${fileName}`, data, {
                 // receive two parameter endpoint url ,form data
@@ -23,11 +24,12 @@ const UploadFile = ({fileName}) => {
                 } else if (!res.data.success) {
                     message.error(res.data.message)
                 }
-
+                setLoading(false)
                 return onSuccess(res, file)
             })
             .catch(error => {
                 console.log(error)
+                setLoading(false)
                 return onError()
             })
     }

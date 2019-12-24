@@ -7,6 +7,7 @@ import UploadFile from '../../Upload'
 
 const NavRight = () => {
     const me = useUserContext()
+    const [loading, setLoading] = useState(false)
     const [isDropdownVisible, setDropdownVisible] = useState(false)
 
     if (!me) return null
@@ -22,23 +23,23 @@ const NavRight = () => {
     const importMenu = (
         <Menu>
             <Menu.Item key='sessions'>
-                <UploadFile fileName='sessions' />
+                <UploadFile setLoading={setLoading} fileName='sessions' />
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item key='students'>
-                <UploadFile fileName='students' />
+                <UploadFile setLoading={setLoading} fileName='students' />
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item key='courses'>
-                <UploadFile fileName='courses' />
+                <UploadFile setLoading={setLoading} fileName='courses' />
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item key='shifts'>
-                <UploadFile fileName='shifts' />
+                <UploadFile setLoading={setLoading} fileName='shifts' />
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item key='rooms'>
-                <UploadFile fileName='rooms' />
+                <UploadFile setLoading={setLoading} fileName='rooms' />
             </Menu.Item>
         </Menu>
     )
@@ -50,8 +51,8 @@ const NavRight = () => {
                     {me?.userInfo?.userType === 'ADMIN' && (
                         <Col className=''>
                             <Dropdown overlay={importMenu} trigger={['click']}>
-                                <Button type='primary' icon='import' className='button-import'>
-                                    Import
+                                <Button type='primary' loading={loading} icon='import' className='button-import'>
+                                    Import{loading && 'ing'}
                                 </Button>
                             </Dropdown>
                         </Col>
