@@ -4,6 +4,7 @@ import {Table, Divider, Popconfirm} from 'antd'
 import useDynamicQuery from '../../../../hooks/useDynamicQuery'
 import useDynamicMutation from '../../../../hooks/useDynamicMutation'
 import ShiftUpdate from './shift-update.component'
+import {useLocalStateContext} from '../../../../hooks/useLocalState'
 
 const ALL_SHIFTS = gql`
     query ALL_SHIFTS {
@@ -25,11 +26,12 @@ const SHIFT_DELETE = gql`
 `
 
 const ShiftTable = () => {
-    const {data, loading} = useDynamicQuery({query: ALL_SHIFTS})
+    const {data, loading, refetch} = useDynamicQuery({query: ALL_SHIFTS})
     const [shifts, setShifts] = useState(null)
     const {fn: deleteShift} = useDynamicMutation({query: SHIFT_DELETE, successMsg: 'Deleted shift successfully'})
     const [updateModalOpen, setUpdateModalOpen] = useState(false)
     const [currentShift, setCurrentShift] = useState(null)
+    const {globalLoading} = useLocalStateContext()
 
     const columns = [
         {
@@ -89,7 +91,10 @@ const ShiftTable = () => {
             })
             setShifts(transformedData)
         }
-    }, [data])
+        if (globalLoading) {
+            refetch()
+        }
+    }, [data, globalLoading, refetch])
 
     return (
         <>

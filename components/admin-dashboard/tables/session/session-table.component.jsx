@@ -6,6 +6,7 @@ import useDynamicQuery from '../../../../hooks/useDynamicQuery'
 import './session-table.styles.scss'
 import useDynamicMutation from '../../../../hooks/useDynamicMutation'
 import SessionUpdate from './session-update.component'
+import {useLocalStateContext} from '../../../../hooks/useLocalState'
 
 const ALL_SESSIONS_ADMIN = gql`
     query ALL_SESSIONS_ADMIN {
@@ -44,11 +45,12 @@ const SESSION_DELETE = gql`
 `
 
 const SessionTable = () => {
-    const {data, loading} = useDynamicQuery({query: ALL_SESSIONS_ADMIN})
+    const {data, loading, refetch} = useDynamicQuery({query: ALL_SESSIONS_ADMIN})
     const [transformedData, setTransformedData] = useState(null)
     const [updateModalOpen, setUpdateModalOpen] = useState(false)
     const [currentSession, setCurrentSession] = useState(null)
     const {fn: deleteSession} = useDynamicMutation({query: SESSION_DELETE, successMsg: 'Deleted session successfully'})
+    const {globalLoading} = useLocalStateContext()
 
     const columns = [
         {
@@ -135,7 +137,11 @@ const SessionTable = () => {
         if (data?.sessions.length) {
             transformData(data.sessions)
         }
-    }, [data, transformData])
+
+        if (globalLoading) {
+            refetch()
+        }
+    }, [data, transformData, globalLoading, refetch])
 
     return (
         <>

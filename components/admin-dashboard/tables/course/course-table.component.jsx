@@ -4,6 +4,7 @@ import {Table, Divider, Popconfirm} from 'antd'
 import useDynamicQuery from '../../../../hooks/useDynamicQuery'
 import useDynamicMutation from '../../../../hooks/useDynamicMutation'
 import CourseUpdate from './course-update.component'
+import {useLocalStateContext} from '../../../../hooks/useLocalState'
 
 const ALL_COURSES = gql`
     query ALL_COURSES {
@@ -31,7 +32,7 @@ const COURSE_DELETE = gql`
 `
 
 const CourseTable = () => {
-    const {data, loading} = useDynamicQuery({query: ALL_COURSES})
+    const {data, loading, refetch} = useDynamicQuery({query: ALL_COURSES})
     const [courses, setCourses] = useState(null)
     const {fn: deleteCourse} = useDynamicMutation({
         query: COURSE_DELETE,
@@ -39,6 +40,7 @@ const CourseTable = () => {
     })
     const [updateModalOpen, setUpdateModalOpen] = useState(false)
     const [currentCourse, setCurrentCourse] = useState(null)
+    const {globalLoading} = useLocalStateContext()
 
     useEffect(() => {
         if (!data) return setCourses(null)
@@ -54,7 +56,11 @@ const CourseTable = () => {
             })
             setCourses(transformedCourses)
         }
-    }, [data])
+
+        if (globalLoading) {
+            refetch()
+        }
+    }, [data, globalLoading, refetch])
 
     const columns = [
         {

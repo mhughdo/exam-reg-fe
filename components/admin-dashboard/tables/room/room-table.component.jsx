@@ -5,6 +5,7 @@ import {Table, Divider, Popconfirm} from 'antd'
 import useDynamicQuery from '../../../../hooks/useDynamicQuery'
 import useDynamicMutation from '../../../../hooks/useDynamicMutation'
 import RoomUpdate from './room-update.component'
+import {useLocalStateContext} from '../../../../hooks/useLocalState'
 
 const ALL_ROOMS = gql`
     query ALL_ROOMS {
@@ -25,11 +26,12 @@ const ROOM_DELETE = gql`
 `
 
 const RoomTable = () => {
-    const {data, loading} = useDynamicQuery({query: ALL_ROOMS})
+    const {data, loading, refetch} = useDynamicQuery({query: ALL_ROOMS})
     const [rooms, setRooms] = useState(null)
     const {fn: deleteRoom} = useDynamicMutation({query: ROOM_DELETE, successMsg: 'Deleted room successfully'})
     const [updateModalOpen, setUpdateModalOpen] = useState(false)
     const [currentRoom, setCurrentRoom] = useState(null)
+    const {globalLoading} = useLocalStateContext()
 
     useEffect(() => {
         if (!data) return setRooms(null)
@@ -44,7 +46,11 @@ const RoomTable = () => {
             })
             setRooms(transformedData)
         }
-    }, [data])
+
+        if (globalLoading) {
+            refetch()
+        }
+    }, [data, globalLoading, refetch])
 
     const columns = [
         {

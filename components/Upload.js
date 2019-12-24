@@ -1,11 +1,14 @@
 import React, {useState} from 'react'
 import {Upload, Button, Icon, message} from 'antd'
 import axios from 'axios'
+import {useLocalStateContext} from '../hooks/useLocalState'
 
 const uploadURL =
     process.env.NODE_ENV === 'production' ? 'https://examreg.hughdo.dev/api/upload' : 'http://localhost:4000/upload'
 
 const UploadFile = ({fileName, setLoading}) => {
+    const {setGlobalLoading} = useLocalStateContext()
+
     const customRequest = args => {
         const {onSuccess, file, onError} = args
         const data = new FormData()
@@ -25,6 +28,8 @@ const UploadFile = ({fileName, setLoading}) => {
                     message.error(res.data.message)
                 }
                 setLoading(false)
+                setGlobalLoading(true)
+                setGlobalLoading(false)
                 return onSuccess(res, file)
             })
             .catch(error => {

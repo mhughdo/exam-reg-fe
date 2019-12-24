@@ -8,13 +8,18 @@ import {withApollo} from '../lib/apollo'
 import redirect from '../lib/redirect'
 import getUser from '../lib/getUser'
 import {UserContext} from '../components/User'
+import {LocalStateProvider} from '../hooks/useLocalState'
 
 function SubApp({children, me}) {
     const value = useMemo(() => {
         return me
     }, [me])
 
-    return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+    return (
+        <LocalStateProvider>
+            <UserContext.Provider value={value}>{children}</UserContext.Provider>
+        </LocalStateProvider>
+    )
 }
 class MyApp extends App {
     static async getInitialProps({Component, ctx}) {
