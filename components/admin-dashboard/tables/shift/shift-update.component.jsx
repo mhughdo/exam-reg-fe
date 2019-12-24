@@ -39,16 +39,21 @@ const ShiftUpdate = ({visible, setUpdateModalOpen, data, form}) => {
 
             let {shiftID, date, startTime, endTime} = values
 
-            updateShift({
-                variables: {
-                    shiftID: data.shiftID,
-                    data: {
-                        shiftID,
-                        date,
-                        startTime,
-                        endTime,
-                    },
+            const variables = {
+                shiftID: data.shiftID,
+                data: {
+                    shiftID,
+                    startTime,
+                    endTime,
                 },
+            }
+
+            if (date !== data.date) {
+                variables.data.date = date
+            }
+
+            updateShift({
+                variables,
                 refetchQueries: ['ALL_SHIFTS'],
             })
         })
